@@ -1,0 +1,432 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Разработка и внедрение СМК | Профессиональный консалтинг</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f4fa;
+            color: #1e293b;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* профессиональная цветовая схема */
+        :root {
+            --bg-dark: #0b1120;
+            --primary: #2d3e6e;
+            --primary-dark: #1a2a4f;
+            --accent: #eab308;
+            --accent-glow: #facc15;
+            --gray-light: #f8fafc;
+            --gray-card: #ffffff;
+            --border-light: #e2e8f0;
+            --text-muted: #475569;
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+            --shadow-hover: 0 25px 30px -12px rgba(0,0,0,0.15);
+            --gradient-hero: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* секции */
+        section {
+            margin-bottom: 5rem;
+        }
+
+        /* ГРАДИЕНТНЫЙ ЗАГОЛОВОК С ПРОЗРАЧНОСТЬЮ (эффект glass) */
+        .hero {
+            background: var(--gradient-hero);
+            border-radius: 2rem;
+            padding: 3rem 2rem;
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(234,179,8,0.2) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .gradient-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(120deg, #ffffff, #eab308, #94a3b8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero-sub {
+            font-size: 1.25rem;
+            color: #cbd5e1;
+            max-width: 80%;
+            border-left: 3px solid var(--accent);
+            padding-left: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        /* карточки навыков (этапы внедрения) с анимацией */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: var(--gray-card);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent);
+        }
+
+        .skill-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), #5b7ab3);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--primary-dark);
+        }
+
+        .skill-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        /* акцентные элементы */
+        .accent-badge {
+            background: var(--accent);
+            color: #0f172a;
+            font-weight: 700;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* Стиль заголовков секций */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(115deg, #1e293b, var(--primary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        /* Примеры кейсов (выделенные блоки) */
+        .case-block {
+            background: linear-gradient(115deg, #ffffff 0%, #fef9e3 100%);
+            border-left: 6px solid var(--accent);
+            border-radius: 1rem;
+            padding: 1.8rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s;
+        }
+
+        .case-block:hover {
+            transform: scale(1.01);
+            background: #ffffff;
+        }
+
+        .case-title {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .case-title .icon {
+            font-size: 1.8rem;
+        }
+
+        .highlight {
+            background: #fef9c3;
+            padding: 0.2rem 0.3rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        /* Сетка инструментов (теги) */
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .tool-tag {
+            background: #eef2ff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary);
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            cursor: default;
+        }
+
+        .tool-tag:hover {
+            background: var(--accent);
+            color: #0f172a;
+            transform: translateY(-2px);
+            border-color: rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* визуальная иерархия и текст */
+        .text-block {
+            background: var(--gray-card);
+            border-radius: 1.2rem;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+
+        .text-block p {
+            margin-bottom: 1rem;
+        }
+
+        .quote-note {
+            font-style: italic;
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-top: 1rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* адаптивность */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.2rem;
+            }
+            .hero-sub {
+                max-width: 100%;
+                font-size: 1rem;
+            }
+            .gradient-title {
+                font-size: 2.2rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            .case-title {
+                font-size: 1.2rem;
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Кнопка и дополнительные эффекты */
+        .info-badge {
+            background: var(--primary);
+            color: white;
+            border-radius: 60px;
+            padding: 0.3rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-radius: 2rem 2rem 0 0;
+            font-size: 0.85rem;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        hr {
+            margin: 2rem 0;
+            border-color: var(--border-light);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Hero: современный градиентный заголовок с эффектом прозрачности -->
+    <div class="hero">
+        <h1 class="gradient-title">РАЗРАБОТКА И ВНЕДРЕНИЕ СМК</h1>
+        <p class="hero-sub">Разработка и внедрение системы менеджмента качества на предприятиях любого масштаба. Стандарты ISO, лицензированный учебный центр, полное сопровождение.</p>
+    </div>
+
+    <!-- Блок: карточки навыков / этапы внедрения (анимация при наведении) -->
+    <section>
+        <h2 class="section-title">Этапы внедрения СМК</h2>
+        <div class="skills-grid">
+            <div class="skill-card"><span class="skill-number">01</span><h3>Оценка текущего состояния</h3><p>Анализ действующей системы менеджмента качества организации, выявление зон роста.</p></div>
+            <div class="skill-card"><span class="skill-number">02</span><h3>Планирование внедрения</h3><p>Согласование структуры СМК, перечня процессов, дорожная карта с руководством.</p></div>
+            <div class="skill-card"><span class="skill-number">03</span><h3>Разработка документации</h3><p>Создание регламентов, положений, методик и документирование всех процессов СМК.</p></div>
+            <div class="skill-card"><span class="skill-number">04</span><h3>Обучение персонала</h3><p>Курсы повышения квалификации, семинары, тренинги для вовлечения команды.</p></div>
+            <div class="skill-card"><span class="skill-number">05</span><h3>Внедрение процессов</h3><p>Практическая реализация СМК в операционной деятельности предприятия.</p></div>
+            <div class="skill-card"><span class="skill-number">06</span><h3>Оценка эффективности</h3><p>Внутренние аудиты, обучение аудиторов заказчика, KPI результативности.</p></div>
+            <div class="skill-card"><span class="skill-number">07</span><h3>Выбор системы сертификации</h3><p>Консультации по органу сертификации, подготовка к сертификационному аудиту.</p></div>
+            <div class="skill-card"><span class="skill-number">08</span><h3>Сертификационный аудит</h3><p>Совместное прохождение аудита до получения сертификата соответствия ISO 9001:2015.</p></div>
+        </div>
+    </section>
+
+    <!-- Дополнительная информация: учебный центр и лицензия (с акцентными элементами) -->
+    <div class="text-block">
+        <div class="info-badge">🎓 Лицензия на образование</div>
+        <p><strong>Учебный центр нашей компании</strong> (лицензия на право ведения образовательной деятельности от 04 марта 2014 года №0840, выдана Комитетом образования г. Санкт-Петербурга) предлагает курсы повышения квалификации и семинары для сотрудников, связанные с системами менеджмента качества и другими вопросами исполнения ГОЗ. Ознакомиться с актуальным расписанием и описанием курсов Вы можете на нашем сайте.</p>
+    </div>
+
+    <!-- Что такое СМК? -->
+    <section>
+        <h2 class="section-title">Что такое система менеджмента качества?</h2>
+        <div class="text-block">
+            <p>Система менеджмента качества — это инструмент для организации результативного и эффективного взаимодействия подразделений между собой и с внешними партнерами. Суть СМК заключается в методической и комплексной отладке процессов, создании условий для их постоянного поддержания. Конечная задача — создание условий для каждого сотрудника, чтобы он мог выполнять задачи и предоставлять потребителю качественную услугу. «Потребителем» не обязательно является клиент компании: например, обращение в смежный отдел — это внутренняя услуга.</p>
+            <p>Для большинства компаний в России СМК дает дополнительные бонусы для выхода на международные рынки, получения особых «дорогих» заказов. Для некоторых отраслей промышленности наличие сертификата СМК обязательно. Стоит отметить, что такого требования нет к микрофинансовым организациям.</p>
+        </div>
+    </section>
+
+    <!-- Примеры кейсов (выделенные блоки + успешный кейс МФК Лайм-Займ) -->
+    <section>
+        <h2 class="section-title">Реальные кейсы и сертификация</h2>
+        
+        <!-- Кейс 1: стратегическое решение -->
+        <div class="case-block">
+            <div class="case-title">
+                <span class="icon">🏆</span> МФК «Лайм-Займ» — международный сертификат ISO 9001:2015
+            </div>
+            <p><strong>Зачем компании сертификат, если это необязательно?</strong> Это стратегическое решение для улучшения результатов деятельности и устойчивого развития. МФК «Лайм-Займ» успешно прошла сертификационный аудит в 2022 году. Проверка проходила в офисе компании, аудиторы сертификационного органа оценили соответствие требованиям международного стандарта ISO 9001:2015. По результатам — компания получила международный сертификат соответствия.</p>
+            <p>Действие сертификата необходимо подтверждать каждый год. <span class="highlight">В 2023 году успешно пройден наблюдательный аудит</span>, подготовка к подтверждению в 2024 году.</p>
+        </div>
+
+        <!-- Кейс 2: результаты аудита и улучшения -->
+        <div class="case-block">
+            <div class="case-title">
+                <span class="icon">📈</span> Результаты наблюдательного аудита 2023 года
+            </div>
+            <p>Из стандартов серии ISO 9000 мы берем лучшие мировые практики для выстраивания своих процессов. По итогам проверки 2023 года аудиторы отметили сильные стороны первого года функционирования СМК в компании. <strong>Качественное улучшение менеджмента и корпоративной культуры</strong> — выработаны более обоснованные решения благодаря созданию проектных групп, расширению состава участников анализа и партнеров-инвесторов.</p>
+            <p>С помощью расширения каналов связи в социальных сетях улучшены процессы мониторинга и анализа данных о потребностях, ожиданиях и удовлетворенности потребителей. Усовершенствованы формы обмена информацией и подходы для устойчивой обратной связи от клиентов.</p>
+            <div class="quote-note">
+                ✅ Положительное решение: Система менеджмента качества по-прежнему отвечает требованиям ISO 9001:2015, подтверждена эффективность процессов.
+            </div>
+        </div>
+        <p style="margin-top: 0.5rem; font-weight: 500;">Мы также планируем развивать СМК и подтверждать эффективность процессов во время аудитов. В этому году предстоит пройти вторую процедуру наблюдательного аудита.</p>
+    </section>
+
+    <!-- Сетка инструментов в виде тегов (профессиональные методологии) -->
+    <section>
+        <h2 class="section-title">Инструменты и компетенции СМК</h2>
+        <div class="tools-grid">
+            <span class="tool-tag">ISO 9001:2015</span>
+            <span class="tool-tag">Процессный подход</span>
+            <span class="tool-tag">PDCA цикл</span>
+            <span class="tool-tag">Риск-менеджмент</span>
+            <span class="tool-tag">Внутренний аудит</span>
+            <span class="tool-tag">Обучение персонала</span>
+            <span class="tool-tag">Документооборот СМК</span>
+            <span class="tool-tag">KPI качества</span>
+            <span class="tool-tag">Бережливое производство</span>
+            <span class="tool-tag">Корректирующие действия</span>
+            <span class="tool-tag">Анализ данных</span>
+            <span class="tool-tag">Сертификационный аудит</span>
+        </div>
+        <p class="quote-note" style="margin-top: 1.5rem; background: #e6f0ff;">🔍 Компания на постоянной основе соответствует требованиям потребителей, законодательным и нормативным требованиям — подтверждено наблюдательными аудитами.</p>
+    </section>
+
+    <!-- Блок общих преимуществ и почему внедрять СМК -->
+    <section>
+        <div class="text-block" style="background: linear-gradient(145deg, #ffffff 0%, #f9fafc 100%);">
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-dark);">Почему выбирают комплексное внедрение СМК?</h3>
+            <p>✔️ Повышение эффективности бизнес-процессов и снижение издержек.<br>
+            ✔️ Выход на международные рынки и тендеры с высокими требованиями.<br>
+            ✔️ Укрепление репутации и доверия со стороны инвесторов и партнеров.<br>
+            ✔️ Готовность к проверкам и прозрачность управления качеством.<br>
+            ✔️ Постоянное улучшение на основе мировых стандартов ISO 9000.</p>
+            <hr style="margin: 1rem 0;">
+            <p>Мы предлагаем полный цикл: от оценки до сертификации и поддержки системы. Наши эксперты сопровождают каждый этап, обучают сотрудников и помогают внедрить культуру качества.</p>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <div class="container">
+        <p>© 2025 Разработка и внедрение СМК | Профессиональный консалтинг и сертификация по стандартам ISO 9001:2015</p>
+        <p style="margin-top: 0.5rem;">Учебный центр — лицензия №0840 от 04 марта 2014 г. | Санкт-Петербург</p>
+    </div>
+</footer>
+
+</body>
+</html>
